@@ -1,26 +1,26 @@
-(define (average x y)
-  (/ (+ x y) 2))
-
-(define (improve guess x)
-  (average guess (/ x guess)))
+(define epsilon 1e-9)
 
 (define (square x) (* x x))
 
-(define epsilon 1e-9)
-
-(define (good-enough? guess x)
-  (< 
-   (abs (- (square guess) x))
-   epsilon))
-
-(define (sqrt-iter guess x)
-  (if (good-enough? guess x)
-      guess
-      (sqrt-iter (improve guess x)
-                 x)))
+(define (average x y)
+  (/ (+ x y) 2))
 
 (define (mysqrt x)
-  (sqrt-iter 1.0 x))
+  
+  (define (improve guess)
+    (average guess (/ x guess)))
+  
+  (define (good-enough? guess)
+    (< 
+     (abs (- (square guess) x))
+     epsilon))
+  
+  (define (sqrt-iter guess)
+    (if (good-enough? guess)
+        guess
+        (sqrt-iter (improve guess))))
+  
+  (sqrt-iter 1.0))
 
 (display (mysqrt 9))
 (newline)
