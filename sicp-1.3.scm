@@ -4,25 +4,18 @@
 (define (sum-of-squares x y) 
   (+ (square x) (square y)))
 
-(define (max2 a b) 
-  (if (> a b) a b))
+(define (bigger a b) (if (> a b) a b))
 
-(define (min2 a b) 
-  (if (< a b) a b))
+(define (smaller a b) (if (< a b) a b))
 
-(define (max3 a b c) 
-  (max2 
-   (max2 a b) c))
+(define (larger-sum-of-squares a b c)
+  (sum-of-squares
+    (bigger a b)
+    (bigger (smaller a b) c)))
 
-(define (mid3 a b c) 
-  (min2 
-   (max2 a b) c))
-
-(define (f a b c) 
-  (sum-of-squares 
-   (max3 a b c) 
-   (mid3 a b c)))
-   
-
-(display (f 3 4 5))
-(newline)
+(display (larger-sum-of-squares 3 4 5)) (newline)
+(display (larger-sum-of-squares 3 5 4)) (newline)
+(display (larger-sum-of-squares 4 3 5)) (newline)
+(display (larger-sum-of-squares 4 5 3)) (newline)
+(display (larger-sum-of-squares 5 3 4)) (newline)
+(display (larger-sum-of-squares 5 4 3)) (newline)
